@@ -1,0 +1,34 @@
+<br><br> 
+<h2> Edit User </h2>
+
+<div style="background:cyan ;width:60% !important" class="jumbotron" >
+<%= form_with model: @user, url: user_path(@user.id),method: :put do |form| %>
+<div class="field form-group">
+    <%= form.text_field :first_name,class:"form-control",placeholder:"Enter First_Name" %>
+</div><br>
+
+
+<div class="field form-group">
+    <%= form.text_field :last_name,class:"form-control",placeholder:"Enter Last_Name" %>
+</div>
+
+<div class="field form-group ">
+<h6 class="text-primary" style="color:Tomato;"> Gender: </h6>
+ Male: <%= form.radio_button :gender, 'Male' %> 
+Female:<%= form.radio_button :gender, 'Female' %>
+</div>
+ 
+<h6 class="text-primary"> category: </h6>
+ Indian: <%= form.check_box :category, {multiple: true}, 'Indian', nil %>
+ American:<%= form.check_box :category,{multiple: true},'American',nil %>
+ Western: <%= form.check_box :category,{multiple: true},'Western',nil  %><br><br>
+<h6 class="text-primary"> City: </h6>
+
+<%= form.select( :city_name, @cities.collect { |city| [city.name] },{include_blank: "Select One City"},)%>
+<br><br><h6 class="text-primary"> Mobile_No:</h6>
+<%= form.number_field :mobile_no %><br><br>
+
+<%= form.submit "Save",class:"btn btn-success" %> 
+<%=link_to "Back", users_path,class:"btn btn-primary" %> <br>
+<% end %>
+</div>

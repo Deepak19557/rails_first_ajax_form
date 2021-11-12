@@ -1,0 +1,63 @@
+<h2> New User list </h2>
+<%= form_tag user_create_ajax_form_user_path, remote: true do %> 
+<br><br>
+	<%= label_tag :first_name %>
+	<%= text_field_tag :first_name %>
+	<%= label_tag :last_name %> 
+	<%= text_field_tag :last_name %>
+	<%= label_tag :mobile_no %>
+	<%= number_field_tag :mobile_no %> 
+	<%= label_tag :gender %>
+	<div class="field form-group ">
+		 Male: <%= radio_button_tag 'gender', 'male' %> 
+		Female:<%= radio_button_tag 'gender', 'female' %>
+	</div>  
+
+	<div class="field">
+        <%= label_tag :images %>
+        <%= file_field_tag :images, multiple:true %>
+    </div> 
+	
+	<%= submit_tag "submit" %>
+<% end %>
+
+<table>
+	<% User.all.order(created_at: :desc).each do |user| %>
+		<th>First name</th>
+		<tr>
+			<td><%= user.first_name %></td>
+		</tr> 
+		<th>Last name</th>
+		<tr>
+			<td><%= user.last_name  %></td>
+		</tr> 
+		<th>Mobile_no</th>
+		<tr>
+			<td><%= user.mobile_no  %></td>
+		</tr><br>
+		<th>Gender</th>
+		<br>
+		<tr>
+			<td><%= user.gender  %></td>
+		</tr> 
+		<tr><td>
+		<% (0...user.images.count).each do |image| %>
+			<%= image_tag(user.images[image], style:"width:20%;height:15%") %>
+		<%end%>
+		</td></tr>
+		<td>
+			<%= link_to 'Destroy', user, method: :delete, data: { confirm:
+			   'Are you sure?' }, :remote => true,class:"btn btn-danger" %> 
+		</td>  
+		<td>
+		   <%=link_to "show", user_path(user.id),class:"btn btn-warning" %>
+		</td>
+		<td>
+		   <%=link_to "Edit", edit_user_path(user.id), class:"btn btn-primary" %> 
+		</td> 
+		<td>
+			<%=link_to "new", new_user_path , class:"btn btn-success" %> 
+		</td> 
+ 
+<% end %>
+</table>  
